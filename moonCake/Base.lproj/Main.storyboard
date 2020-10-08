@@ -388,16 +388,34 @@
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="H0U-In-eoX">
-                                <rect key="frame" x="204" y="355" width="177" height="150"/>
+                                <rect key="frame" x="204" y="355" width="177" height="162"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="價錢" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="buK-ql-QF5">
-                                        <rect key="frame" x="66" y="0.0" width="45" height="26.5"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
-                                        <color key="textColor" red="1" green="0.49345545610000002" blue="0.52430532159999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="w5y-oy-U5Q">
+                                        <rect key="frame" x="50.5" y="0.0" width="76" height="20"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="價錢" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="buK-ql-QF5">
+                                                <rect key="frame" x="0.0" y="0.0" width="50" height="20"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="20" id="bMZ-LT-aET"/>
+                                                    <constraint firstAttribute="width" constant="50" id="g0V-pQ-4GC"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                                                <color key="textColor" red="1" green="0.49345545610000002" blue="0.52430532159999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="元" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hHG-0B-YFx">
+                                                <rect key="frame" x="51" y="0.0" width="25" height="20"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="25" id="LtS-6H-Mc2"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                                                <color key="textColor" red="1" green="0.49345545610000002" blue="0.52430532159999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="33" translatesAutoresizingMaskIntoConstraints="NO" id="7Bt-8q-vGO">
-                                        <rect key="frame" x="0.0" y="56.5" width="177" height="32"/>
+                                        <rect key="frame" x="0.0" y="50" width="177" height="32"/>
                                         <subviews>
                                             <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="Hzd-vg-yEv">
                                                 <rect key="frame" x="0.0" y="0.0" width="94" height="32"/>
@@ -419,12 +437,30 @@
                                             </textField>
                                         </subviews>
                                     </stackView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="總價錢" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="McF-T7-WnB">
-                                        <rect key="frame" x="49" y="118.5" width="79.5" height="31.5"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="26"/>
-                                        <color key="textColor" red="1" green="0.49345545610000002" blue="0.52430532159999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="lN6-ml-rHE">
+                                        <rect key="frame" x="38" y="112" width="101" height="50"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="總價錢" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="McF-T7-WnB">
+                                                <rect key="frame" x="0.0" y="0.0" width="70" height="50"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="50" id="DtO-C2-Pnc"/>
+                                                    <constraint firstAttribute="width" constant="70" id="dRf-Eu-r6Q"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="26"/>
+                                                <color key="textColor" red="1" green="0.49345545610000002" blue="0.52430532159999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="元" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fDe-1F-6dw">
+                                                <rect key="frame" x="71" y="9.5" width="30" height="31.5"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="30" id="Z5d-Il-I7V"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="26"/>
+                                                <color key="textColor" red="1" green="0.49345545610000002" blue="0.52430532159999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
                                 </subviews>
                             </stackView>
                         </subviews>
@@ -465,7 +501,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mBd-UO-C9X" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6872" y="327"/>
+            <point key="canvasLocation" x="6871.0144927536239" y="326.78571428571428"/>
         </scene>
         <!--Ganso Table View Controller-->
         <scene sceneID="DOQ-cQ-g2N">

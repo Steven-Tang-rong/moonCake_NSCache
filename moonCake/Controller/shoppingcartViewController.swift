@@ -14,6 +14,7 @@ class shoppingcartViewController: UIViewController {
     var shopFM: FMStationData?
     var shopGanso: gansoData?
     var shopSefun: sefunData?
+    var shopURL: URL?
     
     var priceText = String()
     
@@ -57,7 +58,7 @@ class shoppingcartViewController: UIViewController {
         urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
   
   //資料
-        let UpdataCart = updateCart(cartItemName: cartItemLabel.text!, cartCount: countTextField.text!, cartTotalPrice: TotalPriceLabel.text!, cartDate: dateString)
+        let UpdataCart = updateCart(cartItemName: cartItemLabel.text!, cartCount: countTextField.text!, cartTotalPrice: TotalPriceLabel.text!, cartDate: dateString, cartURL: shopURL!)
         
         let CartData = cartData(data: [UpdataCart])
         let encoder = JSONEncoder()
@@ -94,9 +95,10 @@ class shoppingcartViewController: UIViewController {
             cartBrandLabel.text = shopFM.brand
             cartItemLabel.text = shopFM.itemName
             cartFlavorLabel.text = shopFM.flavor
-            cartPriceLabel.text = "\(shopFM.price) 元"
+            cartPriceLabel.text = shopFM.price
             cartIntroLabel.text = shopFM.intro
             priceText = shopFM.price
+            shopURL = shopFM.photo
             
             URLSession.shared.dataTask(with: shopFM.photo) {(data, response, error) in
                 if let data = data {
@@ -112,9 +114,10 @@ class shoppingcartViewController: UIViewController {
             cartBrandLabel.text = shopGanso.brand
             cartItemLabel.text = shopGanso.itemName
             cartFlavorLabel.text = shopGanso.flavor
-            cartPriceLabel.text = "\(shopGanso.price) 元"
+            cartPriceLabel.text = shopGanso.price
             cartIntroLabel.text = shopGanso.intro
             priceText = shopGanso.price
+            shopURL = shopGanso.photo
             
             URLSession.shared.dataTask(with: shopGanso.photo) {(data, response, error) in
                 if let data = data {
@@ -131,9 +134,10 @@ class shoppingcartViewController: UIViewController {
             cartBrandLabel.text = shopSefun.brand
             cartItemLabel.text = shopSefun.itemName
             cartFlavorLabel.text = shopSefun.flavor
-            cartPriceLabel.text = "\(shopSefun.price) 元"
+            cartPriceLabel.text = shopSefun.price
             cartIntroLabel.text = shopSefun.intro
             priceText = shopSefun.price
+            shopURL = shopSefun.photo
             
             URLSession.shared.dataTask(with: shopSefun.photo) {(data, response, error) in
                 if let data = data {
@@ -150,14 +154,7 @@ class shoppingcartViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
           TotalPriceLabel.text = cartPriceLabel.text
       }
-    
-    @IBSegueAction func addCartButton(_ coder: NSCoder) -> CartListTVC? {
-        
-        let destinationController = CartListTVC(coder: coder)
-       // destinationController?.cartFM = shopFM
-        
-        return destinationController
-    }
+  
     
 
 }

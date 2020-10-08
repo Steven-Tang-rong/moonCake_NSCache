@@ -11,12 +11,8 @@ import UIKit
 class CartListTVC: UITableViewController {
 
     var UpdateCart = [updateCart]()
+    
     let someAPI = "https://sheetdb.io/api/v1/6ajiyzenph1b0"
-    
- /*   var cartFM: FMStationData?
-    var cartGanso: gansoData?
-    var cartSefun: sefunData?*/
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,6 +59,16 @@ class CartListTVC: UITableViewController {
         cell.CartTotalPrice.text = update.cartTotalPrice
         cell.orderDateLabel.text = update.cartDate
         
+        //圖片
+     
+        URLSession.shared.dataTask(with: update.cartURL) { (data, response, error) in
+            if let data = data {
+                DispatchQueue.main.async {
+                    cell.CartProductsImage.image = UIImage(data: data)
+                }
+            }
+        }.resume()
+ 
         
         return cell
     }

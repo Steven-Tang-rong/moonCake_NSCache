@@ -18,5 +18,6 @@ struct updateCart: Codable {
     let cartCount: String
     let cartTotalPrice: String
     let cartDate: String
+    let cartURL: URL
     
 }

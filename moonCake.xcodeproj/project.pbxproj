@@ -92,6 +92,7 @@
 		2461A40725061F6500DD2F06 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				24DD411624FF8FD500DAEE7A /* MoonCake */,
 				248DE16624FE654900FAC05D /* ViewController.swift */,
 				24AA555124FF36A0008CE3BC /* HomePageViewController.swift */,
 				2461A405250614AE00DD2F06 /* shoppingcartViewController.swift */,
@@ -125,7 +126,6 @@
 				248DE16824FE654900FAC05D /* Main.storyboard */,
 				243DC5A525031B0F00B612FE /* Model */,
 				243DC5AA250322B400B612FE /* View */,
-				24DD411624FF8FD500DAEE7A /* MoonCake */,
 				2461A40725061F6500DD2F06 /* Controller */,
 				248DE16B24FE654B00FAC05D /* Assets.xcassets */,
 				248DE16D24FE654B00FAC05D /* LaunchScreen.storyboard */,
