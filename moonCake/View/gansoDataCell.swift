@@ -10,6 +10,8 @@ import UIKit
 
 class gansoDataCell: UITableViewCell {
 
+    var gansoData: GansoData!
+    
     @IBOutlet weak var gansoImageCell: UIImageView!
     
     @IBOutlet weak var gansoBrandLabel: UILabel!
@@ -28,6 +30,22 @@ class gansoDataCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    
+    func update(with cellGansoData: GansoData) {
+        self.gansoData = cellGansoData
+        
+        gansoBrandLabel.text = cellGansoData.brand
+        gansoItemLabel.text  = cellGansoData.itemName
+        gansoPriceLabel.text = "\(cellGansoData.price) 元"
+        gansoImageCell.image = UIImage(systemName: "text.alignleft")
+        GansoCacheController.shared.gansoFetchImage(url: cellGansoData.photo) { [weak self] (image) in guard let self = self else { return }
+            DispatchQueue.main.async {
+                if cellGansoData.pcs == self.gansoData.pcs {
+                    self.gansoImageCell.image = image
+                }
+            }
+        }
     }
 
 }

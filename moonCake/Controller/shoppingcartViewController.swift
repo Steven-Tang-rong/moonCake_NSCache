@@ -12,8 +12,8 @@ class shoppingcartViewController: UIViewController {
 
     //Model
     var shopFM: FMStationData?
-    var shopGanso: gansoData?
-    var shopSefun: sefunData?
+    var shopGanso: GansoData?
+    var shopSefun: SefunData?
     var shopURL: URL?
     
     var priceText = String()
@@ -35,16 +35,18 @@ class shoppingcartViewController: UIViewController {
     
     @IBOutlet weak var countTextField: UITextField!
     
-   
-    @IBAction func countStepper(_ sender: UIStepper) {
+    @IBOutlet weak var countStepper: UIStepper!
+    
+    @IBAction func addCountStepper(_ sender: UIStepper) {
         let textValue = Int(sender.value)
         countTextField.text = String(textValue)
         
         let someValue = Int(priceText)
-        TotalPriceLabel.text = "\(someValue! * textValue)"
+        TotalPriceLabel.text = "\(someValue! * textValue) 元"
     }
    
-    //上傳資料
+//MARK: - 上傳資料
+    
     @IBAction func cartButton(_ sender: Any) {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
@@ -58,7 +60,7 @@ class shoppingcartViewController: UIViewController {
         urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
   
   //資料
-        let UpdataCart = updateCart(cartItemName: cartItemLabel.text!, cartCount: countTextField.text!, cartTotalPrice: TotalPriceLabel.text!, cartDate: dateString, cartURL: shopURL!)
+        let UpdataCart = OrderListData(cartItemName: cartItemLabel.text!, cartCount: countTextField.text!, cartTotalPrice: TotalPriceLabel.text!, cartDate: dateString, cartURL: shopURL!)
         
         let CartData = cartData(data: [UpdataCart])
         let encoder = JSONEncoder()
@@ -81,22 +83,28 @@ class shoppingcartViewController: UIViewController {
         }
     }
     
-  
+//MARK: - viewDidLoad
     
     override func viewDidLoad() {
         super.viewDidLoad()
         cartImageView.contentMode = .scaleAspectFill
-        countTextField.text = "1"
         countTextField.isEnabled = false
-        
+        countTextField.text = "1"
+        countStepper.value = 1
+        countStepper.minimumValue = 1
         
         //FM
         if let shopFM = shopFM {
+            if shopFM.intro != "" {
+                cartIntroLabel.text = "商品介紹：\n\(shopFM.intro)"
+            }else {
+                cartIntroLabel.text = "商品介紹：\n該商品尚未有介紹內容"
+            }
+            
             cartBrandLabel.text = shopFM.brand
             cartItemLabel.text = shopFM.itemName
-            cartFlavorLabel.text = shopFM.flavor
-            cartPriceLabel.text = shopFM.price
-            cartIntroLabel.text = shopFM.intro
+            cartFlavorLabel.text = "口味： \(shopFM.flavor)"
+            cartPriceLabel.text = "\(shopFM.price) 元"
             priceText = shopFM.price
             shopURL = shopFM.photo
             
@@ -111,11 +119,16 @@ class shoppingcartViewController: UIViewController {
        
         //Ganso
         if let shopGanso = shopGanso {
+            if shopGanso.intro != "" {
+                cartIntroLabel.text = "商品介紹：\n\(shopGanso.intro)"
+            }else {
+                cartIntroLabel.text = "商品介紹：\n該商品尚未有介紹內容"
+            }
+            
             cartBrandLabel.text = shopGanso.brand
             cartItemLabel.text = shopGanso.itemName
-            cartFlavorLabel.text = shopGanso.flavor
-            cartPriceLabel.text = shopGanso.price
-            cartIntroLabel.text = shopGanso.intro
+            cartFlavorLabel.text = "口味： \(shopGanso.flavor)"
+            cartPriceLabel.text = "\(shopGanso.price) 元"
             priceText = shopGanso.price
             shopURL = shopGanso.photo
             
@@ -131,11 +144,16 @@ class shoppingcartViewController: UIViewController {
         
         //Sefun
         if let shopSefun = shopSefun {
+            if shopSefun.intro != "" {
+                cartIntroLabel.text = "商品介紹：\n\(shopSefun.intro)"
+            }else {
+                cartIntroLabel.text = "商品介紹：\n該商品尚未有介紹內容"
+            }
+            
             cartBrandLabel.text = shopSefun.brand
             cartItemLabel.text = shopSefun.itemName
-            cartFlavorLabel.text = shopSefun.flavor
-            cartPriceLabel.text = shopSefun.price
-            cartIntroLabel.text = shopSefun.intro
+            cartFlavorLabel.text = "口味： \(shopSefun.flavor)"
+            cartPriceLabel.text = "\(shopSefun.price) 元"
             priceText = shopSefun.price
             shopURL = shopSefun.photo
             

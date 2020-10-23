@@ -10,27 +10,21 @@ import UIKit
 
 class FMTableViewController: UITableViewController {
 
-    var FmStationData = [FMStationData]()
-    let FMStation = "https://sheetdb.io/api/v1/fim6gdre7wzmi"
+    var fmStationData = [FMStationData]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        if let url = URL(string: FMStation) {
-            URLSession.shared.dataTask(with: url) {(data, response, erroe) in
-                let decoder = JSONDecoder()
-                if let data = data, let FMresult = try? decoder.decode([FMStationData].self ,from: data){
-                            
-                    self.FmStationData = FMresult
-                       
-                    DispatchQueue.main.async {
-                        self.tableView.reloadData()
-                    }
+        FmCacheController.shared.fetchFMImage { [weak self] (fmStationData) in
+           guard let self = self else { return }
+            if let fmStationData = fmStationData {
+                self.fmStationData = fmStationData
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
                 }
-            }.resume()
-          
+            }
         }
-        
+
     }
 
     // MARK: - Table view data source
@@ -42,26 +36,16 @@ class FMTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return FmStationData.count
+        return fmStationData.count
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "\(FMdataCell.self)", for: indexPath) as! FMdataCell
 
-        let FM = FmStationData[indexPath.row]
-        cell.FMbrandLabel.text = FM.brand
-        cell.FMitemLabel.text = FM.itemName
-        cell.FMpriceLabel.text = "\(FM.price) 元"
-        cell.FMimageCell.image = nil
+        let FM = fmStationData[indexPath.row]
+        cell.update(with: FM)
         
-        URLSession.shared.dataTask(with: FM.photo) {(data, response, error) in
-            if let data = data {
-                DispatchQueue.main.async {
-                    cell.FMimageCell.image = UIImage(data: data)
-                }
-            }
-        }.resume()
         
         return cell
     }
@@ -74,7 +58,7 @@ class FMTableViewController: UITableViewController {
 
         if let row = tableView.indexPathForSelectedRow?.row {
             
-            destinationController?.shopFM = FmStationData[row]
+            destinationController?.shopFM = fmStationData[row]
             
             
         }

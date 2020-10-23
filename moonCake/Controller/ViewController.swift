@@ -8,19 +8,36 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UITextFieldDelegate {
 
     
-    @IBOutlet weak var countText: UITextField!
+    @IBOutlet weak var countText: UITextField! {
+        didSet{
+            countText.tag = 1
+            countText.delegate = self
+        }
+    }
     
-    @IBOutlet weak var passWordText: UITextField!
+    @IBOutlet weak var passWordText: UITextField! {
+        didSet{
+            passWordText.tag = 2
+            passWordText.delegate = self
+        }
+    }
+    
+    @IBAction func dismissKeyBoard(_ sender: Any) {
+    }
     
     @IBAction func passButton(_ sender: Any) {
-        if countText.text == "123" && passWordText.text == "123"{
+        if countText.text == "941" && passWordText.text == "941"{
             performSegue(withIdentifier: "passSegue", sender: sender)
         }else {
             errorMessage()
         }
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
     }
     
     func errorMessage() {

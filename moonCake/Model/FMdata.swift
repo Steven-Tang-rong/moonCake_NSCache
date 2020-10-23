@@ -16,5 +16,6 @@ struct FMStationData: Codable {
     let price: String
     let photo: URL
     let intro: String
-    
 }
+
+

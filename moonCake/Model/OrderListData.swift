@@ -9,11 +9,11 @@
 import Foundation
 
 struct cartData: Codable {
-    var data: [updateCart]
+    var data: [OrderListData]
 }
 
 
-struct updateCart: Codable {
+struct OrderListData: Codable {
     let cartItemName: String
     let cartCount: String
     let cartTotalPrice: String

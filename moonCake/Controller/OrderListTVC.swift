@@ -10,29 +10,22 @@ import UIKit
 
 class OrderListTVC: UITableViewController {
 
-    var UpdateCart = [updateCart]()
+    var orderListData = [OrderListData]()
     
-    let orderAPI = "https://sheetdb.io/api/v1/6ajiyzenph1b0"
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        if let url = URL(string: orderAPI) {
-            URLSession.shared.dataTask(with: url) { (data, response, error) in
-                let decoder = JSONDecoder()
-                if let data = data, let cartResult = try? decoder.decode([updateCart].self, from: data) {
-                    
-                    self.UpdateCart = cartResult
-                    
-                    DispatchQueue.main.async {
-                        self.tableView.reloadData()
-                    }
-                    
+        OrderListCacheController.share.fetchOrderImage { [weak self] (orderListData) in
+            guard let self = self else { return }
+            if let orderListData = orderListData {
+                self.orderListData = orderListData
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
                 }
-                
-            }.resume()
+            }
         }
-        
+    
     }
 
     // MARK: - Table view data source
@@ -44,40 +37,29 @@ class OrderListTVC: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return UpdateCart.count
+        return orderListData.count
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let Identifier = "CheckoutCell"
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: Identifier, for: indexPath) as? CheckoutTableViewCell else{ return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: Identifier, for: indexPath) as? OrderListTableViewCell else{ return UITableViewCell() }
 
-        let update = UpdateCart[indexPath.row]
-        cell.CartProductsName.text = update.cartItemName
-        cell.CartCount.text = update.cartCount
-        cell.CartTotalPrice.text = "\(update.cartTotalPrice) 元"
-        cell.orderDateLabel.text = update.cartDate
-        
-        //圖片
-     
-        URLSession.shared.dataTask(with: update.cartURL) { (data, response, error) in
-            if let data = data {
-                DispatchQueue.main.async {
-                    cell.CartProductsImage.image = UIImage(data: data)
-                }
-            }
-        }.resume()
+        let orderData = orderListData[indexPath.row]
+        cell.updata(with: orderData)
  
         
         return cell
     }
     
+    
+ //刪除sheetDB資料
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         
         let deleteAction = UITableViewRowAction(style: .destructive, title: "刪除") { (action, indexPath) in
             
-            let updateCart = self.UpdateCart[indexPath.row]
+            let updateCart = self.orderListData[indexPath.row]
             print(updateCart.cartItemName)
             
                  
@@ -101,7 +83,7 @@ class OrderListTVC: UITableViewController {
                             }
                         }
                 task.resume()
-                self.UpdateCart.remove(at: indexPath.row)
+                self.orderListData.remove(at: indexPath.row)
                 tableView.deleteRows(at: [indexPath], with: .fade)
                 print("success")
                    
@@ -113,19 +95,5 @@ class OrderListTVC: UITableViewController {
         
          return [deleteAction]
     }
-    //MARK: - IBSegue to Order DetailsViewController
-   
-    @IBSegueAction func toOrderDetailsSegue(_ coder: NSCoder) -> OrderDetailsViewController? {
-        
-        let destinationController = OrderDetailsViewController(coder: coder)
-        
-        if let row = tableView.indexPathForSelectedRow?.row {
-            
-        }
-        
-        return destinationController
-    }
-    
-    
 
 }
